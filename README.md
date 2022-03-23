@@ -9,7 +9,7 @@
 
 ## Demo
 
-This application is deployed on Vercel.. Please check it out 😄 [here](https://jobs-portal-theta.vercel.app).
+This application is deployed on Vercel.. Please check it out 😄 [here](https://crypto-listing.vercel.app).
 
 ## Installation
 
