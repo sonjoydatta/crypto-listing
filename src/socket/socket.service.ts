@@ -5,7 +5,7 @@ export class SocketService {
 	private _socket: Socket<IncomingEvents, OutgoingEvents>;
 
 	constructor(url: string) {
-		this._socket = io(`ws://${url}`, {
+		this._socket = io(url, {
 			transports: ['websocket'],
 		});
 
