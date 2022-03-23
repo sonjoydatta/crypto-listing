@@ -1,0 +1,103 @@
+*,
+*::after,
+*::before {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	padding: 0;
+	margin: 0;
+	font-family: $base-font-family;
+	font-size: $base-font-size;
+	font-weight: 400;
+	color: $text;
+	line-height: 1;
+	background-color: $gray-200;
+	-webkit-text-size-adjust: 100%;
+	-webkit-tap-highlight-color: transparent;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+	margin: 0;
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
+
+	&:focus {
+		outline: none;
+	}
+}
+
+a {
+	text-decoration: underline;
+	color: $primary;
+
+	&:hover {
+		text-decoration: none;
+	}
+}
+
+input,
+textarea {
+	background-color: $gray-100;
+
+	&:focus {
+		outline: none;
+	}
+
+	&:disabled {
+		background-color: $gray-200;
+	}
+}
+
+img {
+	border-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin-top: 0;
+	margin-bottom: 0.5rem;
+	font-weight: 600;
+	line-height: 1.2;
+	color: $drak;
+	font-family: $base-font-family;
+}
+
+h1 {
+	font-size: 2rem;
+}
+
+h2 {
+	font-size: 1.75rem;
+}
+
+h3 {
+	font-size: 1.5rem;
+}
+
+h4 {
+	font-size: 1.25rem;
+}
+
+h5 {
+	font-size: 1.125rem;
+}
+
+h6 {
+	font-size: 0.875rem;
+}
+
+p {
+	margin-top: 0;
+	margin-bottom: 1rem;
+}

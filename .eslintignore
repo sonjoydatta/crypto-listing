@@ -1,0 +1,9 @@
+node_modules
+dist
+.eslintrc
+.eslintignore
+.vscode
+next.config.js
+tsconfig.json
+jest.config.ts
+jest.setup.ts
