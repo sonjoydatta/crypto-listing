@@ -1,30 +1,41 @@
 import { apiService } from '@/libs/api';
 import { useAsync } from '@/libs/hooks';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { CryptoListItem } from './CryptoListItem';
 import { Loader } from './Loader';
 import styles from './styles.module.scss';
 
 export const CryptoList = () => {
-	const [page, setPage] = useState(1);
 	const [assets, setAssets] = useState<IAPI.Asset[]>([]);
 
 	const loadData = useCallback((page: number) => apiService.getCrypto(page, 10), []);
 
 	const { loading, data, error, call } = useAsync(loadData, 1);
 
-	useEffect(() => {
-		if (data && data.data.assetCategories[0].assetCategoryData[0].assets?.length > 0) {
-			setAssets((prev) => [...prev, ...data.data.assetCategories[0].assetCategoryData[0].assets]);
+	const { page, totalPageCount } = useMemo(() => {
+		if (data) {
+			const {
+				page,
+				totalPageCount,
+				assetCategories: {
+					0: {
+						assetCategoryData: {
+							0: { assets },
+						},
+					},
+				},
+			} = data.data;
+			setAssets((prev) => [...prev, ...assets]);
+			return { page, totalPageCount };
 		}
+		return { page: 1, totalPageCount: 1 };
 	}, [data]);
 
 	const handlePageChange = useCallback(() => {
-		if (data?.data.totalPageCount === page) return;
+		if (totalPageCount === page) return;
 
-		setPage((p) => p + 1);
 		call(page + 1);
-	}, [call, data?.data.totalPageCount, page]);
+	}, [call, page, totalPageCount]);
 
 	if (loading && !assets?.length) {
 		return <div>Loading...</div>;
