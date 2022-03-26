@@ -10,6 +10,7 @@ export default defineConfig({
 			'/api': {
 				target: 'https://staging-api-pluang.pluang.org/',
 				changeOrigin: true,
+				secure: false,
 			},
 		},
 	},

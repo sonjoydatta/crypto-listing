@@ -1,8 +1,0 @@
-{
-  "rewrites": [
-    {
-      "source": "/api",
-      "destination": "https://staging-api-pluang.pluang.org/"
-    }
-  ]
-}
