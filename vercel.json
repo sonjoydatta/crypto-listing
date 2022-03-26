@@ -1,0 +1,10 @@
+{
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "x-app-version-code", "value": "468" }
+      ]
+    }
+  ]
+}
