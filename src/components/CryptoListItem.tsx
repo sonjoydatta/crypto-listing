@@ -12,6 +12,7 @@ type CryptoListItemProps = {
 
 export const CryptoListItem: FC<CryptoListItemProps> = ({ asset, onLoadMore }) => {
 	const [displayData, setDisplayData] = useState(asset.display);
+	const [_, setSubIDs] = useState<string[]>([]);
 	const loadMoreobserver = useObserver(() => onLoadMore?.());
 	const statusRef = useRef<HTMLDivElement>(null);
 	const isVisible = useOnScreen(statusRef);
@@ -35,17 +36,26 @@ export const CryptoListItem: FC<CryptoListItemProps> = ({ asset, onLoadMore }) =
 
 	useEffect(() => {
 		if (subscriptionID) {
+			const unsubscribe = () => {
+				setSubIDs((prev) => {
+					if (prev.includes(subscriptionID)) {
+						socket.unsubscribe({ topics: [subscriptionID] });
+						unsubRef.current?.();
+					}
+					return prev.filter((id) => id !== subscriptionID);
+				});
+			};
+
 			if (isVisible) {
+				setSubIDs((prev) => [...prev, subscriptionID]);
 				socket.subscribe({ topics: [subscriptionID] });
 				unsubRef.current = socket.on(subscriptionID, updateDisplayData);
 			} else {
-				socket.unsubscribe({ topics: [subscriptionID] });
-				unsubRef.current?.();
+				unsubscribe();
 			}
 
 			return () => {
-				socket.unsubscribe({ topics: [subscriptionID] });
-				unsubRef.current?.();
+				unsubscribe();
 			};
 		}
 	}, [isVisible, socket, subscriptionID, updateDisplayData]);
